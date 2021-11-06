@@ -1,5 +1,5 @@
 const validateTickerExists = (req, res, next: Function) => {
-  const { ticker } = req.params;
+  const ticker = req.params.ticker;
   if (ticker) {
     return next();
   }
