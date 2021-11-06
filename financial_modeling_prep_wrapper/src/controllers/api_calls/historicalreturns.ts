@@ -11,6 +11,7 @@ const retrieveHistoricalData = async (req, res) => {
     const returnMessage = {
       symbol: financials.data.symbol,
       data: financials.data.historical.reverse(),
+      ticker: ticker ? ticker : 'no ticker?',
     };
 
     return res.status(200).json(returnMessage);
