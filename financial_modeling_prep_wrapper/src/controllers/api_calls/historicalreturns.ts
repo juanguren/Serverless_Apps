@@ -1,8 +1,7 @@
 import { data, params } from '@serverless/cloud';
 import axios from 'axios';
 
-const retrieveHistoricalData = async (req, res) => {
-  const ticker = req.params.ticker;
+const retrieveHistoricalData = async (req, res, ticker: string = 'GME') => {
   const { API_KEY } = params;
   try {
     const financials = await axios.get(
@@ -11,7 +10,6 @@ const retrieveHistoricalData = async (req, res) => {
     const returnMessage = {
       symbol: financials.data.symbol,
       data: financials.data.historical.reverse(),
-      ticker: ticker ? ticker : 'no ticker?',
     };
 
     return res.status(200).json(returnMessage);
