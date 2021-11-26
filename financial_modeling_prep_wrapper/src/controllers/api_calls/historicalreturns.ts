@@ -3,9 +3,10 @@ import axios from 'axios';
 
 const retrieveHistoricalData = async (req, res, ticker: string = 'GME') => {
   const { API_KEY } = params;
+  const { from: fromDate, to: toDate } = req.body.time_range;
   try {
     const financials = await axios.get(
-      `https://financialmodelingprep.com/api/v3/historical-price-full/${ticker}?from=2018-03-12&to=2019-03-12&apikey=${API_KEY}`
+      `https://financialmodelingprep.com/api/v3/historical-price-full/${ticker}?from=${fromDate}&to=${toDate}&apikey=${API_KEY}`
     );
     const returnMessage = {
       symbol: financials.data.symbol,
