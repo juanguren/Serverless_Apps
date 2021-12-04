@@ -15,9 +15,8 @@ const retrieveHistoricalData = async (req, res, ticker: string = 'GME') => {
 
     return res.status(200).json(returnMessage);
   } catch (error) {
-    const status = error.statusCode || 500;
-    const errorMessage = { message: 'Error while fetching data', ticker };
-    return res.status(status).json(errorMessage);
+    const status = error.statusCode || 400;
+    throw { message: `Error while fetching data fro ${ticker}`, code: status };
   }
 };
 
