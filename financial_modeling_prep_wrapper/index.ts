@@ -1,5 +1,6 @@
 import { api } from '@serverless/cloud';
 import { retrieveHistoricalData } from './src/controllers/api_calls/historicalreturns';
+import { dataForRequest } from './src/controllers/dataInterface';
 import { validateTickerExists } from './src/controllers/api_calls/validators';
 
 /*api.get(
@@ -8,12 +9,14 @@ import { validateTickerExists } from './src/controllers/api_calls/validators';
   retrieveHistoricalData
 );*/
 
-api.post('/data/historical/:ticker', async (req, res) => {
-  let ticker = req.params.ticker;
+// * https://billowing-tree-gge03.cloud.serverless.com/data/historical/GME/2020-11-01/2021-12-04
+api.get('/data/historical/:ticker/:fromDate/:toDate', async (req, res) => {
+  const { fromDate: from, toDate: to, ticker } = req.params;
+  const data: dataForRequest = { from, to, ticker };
   try {
-    if (!req.body.time_range)
+    if (!from || !to || !ticker)
       throw { code: 404, message: 'Empty body, please include a time_range' };
-    await retrieveHistoricalData(req, res, ticker);
+    await retrieveHistoricalData(req, res, data);
   } catch (error) {
     const { code, message } = error;
     return res.status(code).json({ message });

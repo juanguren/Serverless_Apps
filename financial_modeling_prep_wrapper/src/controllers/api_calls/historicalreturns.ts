@@ -1,12 +1,14 @@
 import { data, params } from '@serverless/cloud';
 import axios from 'axios';
+import { dataForRequest } from '../dataInterface';
 
-const retrieveHistoricalData = async (req, res, ticker: string = 'GME') => {
+const retrieveHistoricalData = async (req, res, data: dataForRequest) => {
   const { API_KEY } = params;
-  const { from: fromDate, to: toDate } = req.body.time_range;
+  const { from, to, ticker } = data;
+
   try {
     const financials = await axios.get(
-      `https://financialmodelingprep.com/api/v3/historical-price-full/${ticker}?from=${fromDate}&to=${toDate}&apikey=${API_KEY}`
+      `https://financialmodelingprep.com/api/v3/historical-price-full/${ticker}?from=${from}&to=${to}&apikey=${API_KEY}`
     );
     const returnMessage = {
       symbol: financials.data.symbol,
@@ -16,7 +18,7 @@ const retrieveHistoricalData = async (req, res, ticker: string = 'GME') => {
     return res.status(200).json(returnMessage);
   } catch (error) {
     const status = error.statusCode || 400;
-    throw { message: `Error while fetching data fro ${ticker}`, code: status };
+    throw { message: `Error while fetching data from ${ticker}`, code: status };
   }
 };
 
