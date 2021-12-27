@@ -1,5 +1,5 @@
 import { data } from '@serverless/cloud';
-import AcceptedData from './src/interfaces/dataToStore';
+import AcceptedData from './interfaces/dataToStore';
 
 const handleData = async (req, res, dataSet: AcceptedData) => {
   let {
