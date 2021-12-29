@@ -1,7 +1,15 @@
 import { data } from '@serverless/cloud';
-import AcceptedData from './interfaces/dataToStore';
+import {
+  AcceptedData,
+  DataAction,
+} from './interfaces/dataInterfaces';
 
-const handleData = async (req, res, dataSet: AcceptedData) => {
+const handleData = async (
+  req,
+  res,
+  dataSet: AcceptedData,
+  action: DataAction,
+) => {
   let {
     keyName = 'key',
     overwrite = undefined,
@@ -14,8 +22,10 @@ const handleData = async (req, res, dataSet: AcceptedData) => {
     const useOptions =
       Object.entries(option).length === 0 ? undefined : option;
     await data.set(keyName, content, useOptions);
+
     return res.status(200).json({
-      message: `Items succesfully stored under key ${keyName}`,
+      message: action,
+      keyName,
     });
   } catch (error) {
     const code = error.statusCode || 500;
