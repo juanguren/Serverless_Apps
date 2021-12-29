@@ -1,7 +1,10 @@
 import { api, data, schedule, params } from '@serverless/cloud';
 import { handleData } from './src/dataHandler';
 import { isKeyNameDuplicated } from './src/validators';
-import AcceptedData from './src/interfaces/dataToStore';
+import {
+  AcceptedData,
+  DataAction,
+} from './src/interfaces/dataInterfaces';
 
 api.get('/', (req, res) =>
   res.status(200).json({ message: 'Healthy' }),
@@ -25,19 +28,18 @@ api.get('/data/:key', async (req, res) => {
 api.post('/data', async (req, res) => {
   const { content, instructions } = req.body;
   const { keyName } = instructions;
+  let action: DataAction = DataAction.CREATE;
+
   try {
     if (content || content.length > 0) {
       const data: AcceptedData = {
         content,
         instructions,
       };
-      if (isKeyNameDuplicated(keyName)) {
-        throw {
-          message: `An entry with the key ${keyName} already exists`,
-          code: 403,
-        };
-      }
-      await handleData(req, res, data);
+      if (await isKeyNameDuplicated(keyName))
+        action = DataAction.UPDATE;
+
+      return await handleData(req, res, data, action);
     } else {
       throw { message: 'Empty content key' };
     }
