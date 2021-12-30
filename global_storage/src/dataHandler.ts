@@ -4,7 +4,7 @@ import {
   DataAction,
 } from './interfaces/dataInterfaces';
 
-const handleData = async (
+const postDataHandler = async (
   req,
   res,
   dataSet: AcceptedData,
@@ -33,4 +33,4 @@ const handleData = async (
   }
 };
 
-export { handleData };
+export { postDataHandler };
