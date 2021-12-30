@@ -1,5 +1,5 @@
 import { api, data, schedule, params } from '@serverless/cloud';
-import { handleData } from './src/dataHandler';
+import { postDataHandler } from './src/dataHandler';
 import { isKeyNameDuplicated } from './src/validators';
 import {
   AcceptedData,
@@ -14,7 +14,7 @@ api.get('/data/:key', async (req, res) => {
   const { key } = req.params;
   try {
     const response = await data.get(key);
-    if (response) return res.status(200).json({ response });
+    if (response) return res.status(200).json({ data: response });
     throw {
       message: `No data associated with the ${key} key`,
       code: 404,
@@ -39,13 +39,27 @@ api.post('/data', async (req, res) => {
       if (await isKeyNameDuplicated(keyName))
         action = DataAction.UPDATE;
 
-      return await handleData(req, res, data, action);
+      return await postDataHandler(req, res, data, action);
     } else {
       throw { message: 'Empty content key' };
     }
   } catch (error) {
     const { message, code = 400 } = error;
     return res.status(code).json({ message });
+  }
+});
+
+api.delete('/data/:key', async (req, res) => {
+  const { key: keyName } = req.params;
+  try {
+    const response = await data.remove(keyName);
+    if (response)
+      return res
+        .status(200)
+        .json({ message: 'Entry deleted succesfully' });
+    throw 'Server error';
+  } catch (error) {
+    res.status(500).json(error);
   }
 });
 
