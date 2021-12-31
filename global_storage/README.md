@@ -6,11 +6,16 @@ Its purpose: Storing and retrieving data on the go 🤷
 
 - Save/Update/Overwrite (POST): https://tiny-mud-prr78.cloud.serverless.com/data
 - Retrieve (GET): https://tiny-mud-prr78.cloud.serverless.com/data/:keyName
-- Delete (DELETE): https://tiny-mud-prr78.cloud.serverless.com/data
+- Delete (DELETE): https://tiny-mud-prr78.cloud.serverless.com/data/:keyName
+
 #
+
 ### Saving, Updating and Overwriting Data
+
 (POST Request: https://tiny-mud-prr78.cloud.serverless.com/data)
+
 #### SEND
+
 Make a request using the following JSON-parsed body structure:
 
 ```
@@ -23,10 +28,15 @@ Make a request using the following JSON-parsed body structure:
     }
 }
 ```
+
 #### UPDATE
-Resending content using the same key name will append that body to the previously saved key, generating an __update action__.
+
+Resending content using the same key name will append that body to the previously saved key, generating an **update action**.
+
 #### OVERWRITE
-Using the same body, include the ```overwrite``` boolean attribute inside of __"instructions__. The overwrite should be sent on ```true```
+
+Using the same body, include the `overwrite` boolean attribute inside of **"instructions**. The overwrite should be sent on `true`
+
 ```
 {
     "content": {
@@ -40,7 +50,11 @@ Using the same body, include the ```overwrite``` boolean attribute inside of __"
 ```
 
 ### Retrieving Data
+
 (GET Request: https://tiny-mud-prr78.cloud.serverless.com/data/:keyName)
 
 [Check out an example](https://tiny-mud-prr78.cloud.serverless.com/data/keyTest)
 
+### Deleting Data
+
+(DELETE Request: https://tiny-mud-prr78.cloud.serverless.com/data/:keyName)
