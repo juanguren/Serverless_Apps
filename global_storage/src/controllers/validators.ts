@@ -35,12 +35,17 @@ const checkTokenCoincides = async (
   };
   try {
     if (req.method == 'POST') {
-      const { token: existingToken } = req.body.content;
-      if (api_key != existingToken) return next();
-      throw keyNameClaimedErrorMsg;
+      const { keyName } = req.body.instructions;
+      const data = await getExistingKey(keyName);
+      if (data) {
+        if (api_key == data.token) return next();
+        throw keyNameClaimedErrorMsg;
+      }
+      return next();
     } else {
       const { key } = req.params;
-      const { token: existingToken } = await getExistingKey(key);
+      const { token: existingToken } = await getExistingKey(key); // TODO: Fix retrieving an unexistant key
+
       if (api_key == existingToken) return next();
       throw keyNameClaimedErrorMsg;
     }
