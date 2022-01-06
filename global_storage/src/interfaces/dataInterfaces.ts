@@ -1,5 +1,5 @@
 export interface AcceptedData {
-  content: object[] | string | number | boolean;
+  content: any;
   instructions: Instructions;
 }
 

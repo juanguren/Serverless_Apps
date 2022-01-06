@@ -2,7 +2,7 @@ import { data } from '@serverless/cloud';
 import {
   AcceptedData,
   DataAction,
-} from './interfaces/dataInterfaces';
+} from '../interfaces/dataInterfaces';
 
 const postDataHandler = async (
   req,
@@ -16,11 +16,13 @@ const postDataHandler = async (
     timeToLive = undefined,
   } = dataSet.instructions;
   const { content } = dataSet;
+  const { api_key } = req.headers;
 
   try {
     const option = { overwrite, timeToLive };
     const useOptions =
       Object.entries(option).length === 0 ? undefined : option;
+    content.token = api_key;
     await data.set(keyName, content, useOptions);
 
     return res.status(200).json({
