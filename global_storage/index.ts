@@ -1,10 +1,18 @@
 import { api, data, schedule, params } from '@serverless/cloud';
-import { postDataHandler } from './src/dataHandler';
-import { isKeyNameDuplicated } from './src/validators';
+import { postDataHandler } from './src/controllers/dataHandler';
+import {
+  getExistingKey,
+  validateUserToken,
+  checkTokenCoincides,
+} from './src/controllers/validators';
 import {
   AcceptedData,
   DataAction,
 } from './src/interfaces/dataInterfaces';
+import { removeTokenFromPayload } from './src/utils/utils';
+
+// Application-level middleware
+api.use(validateUserToken, checkTokenCoincides);
 
 api.get('/', (req, res) =>
   res.status(200).json({ message: 'Healthy' }),
@@ -14,7 +22,10 @@ api.get('/data/:key', async (req, res) => {
   const { key } = req.params;
   try {
     const response = await data.get(key);
-    if (response) return res.status(200).json({ data: response });
+    if (response) {
+      const payload = removeTokenFromPayload(response);
+      return res.status(200).json({ data: payload });
+    }
     throw {
       message: `No data associated with the ${key} key`,
       code: 404,
@@ -36,8 +47,7 @@ api.post('/data', async (req, res) => {
         content,
         instructions,
       };
-      if (await isKeyNameDuplicated(keyName))
-        action = DataAction.UPDATE;
+      if (await getExistingKey(keyName)) action = DataAction.UPDATE;
 
       return await postDataHandler(req, res, data, action);
     } else {
