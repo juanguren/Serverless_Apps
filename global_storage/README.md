@@ -4,15 +4,17 @@ This project aims to create a literal Global Array API. Available to small, acad
 
 Its purpose: Storing and retrieving data on the go 🤷
 
-- Save/Update/Overwrite (POST): https://sparkling-sun-qvwjh.cloud.serverless.com/data
-- Retrieve (GET): https://sparkling-sun-qvwjh.cloud.serverless.com/:keyName
-- Delete (DELETE): https://sparkling-sun-qvwjh.cloud.serverless.com/:keyName
+### Base URL: https://sparkling-sun-qvwjh.cloud.serverless.com
+
+- Save/Update/Overwrite (POST): `/data`
+- Retrieve (GET): `/data/:keyName`
+- Delete (DELETE): `/data/:keyName`
 
 #
 
 ### Saving, Updating and Overwriting Data
 
-(POST Request: https://sparkling-sun-qvwjh.cloud.serverless.com/data)
+(POST Request: `/data`)
 
 #### SEND
 
@@ -51,7 +53,7 @@ Using the same body, include the `overwrite` boolean attribute inside of **"inst
 
 ### Retrieving Data
 
-(GET Request: https://sparkling-sun-qvwjh.cloud.serverless.com/:keyName)
+(GET Request: `/data/:keyName`)
 
 [Check out an example](https://icy-wood-rwis4.cloud.serverless.com/data/testKey)
 
@@ -59,4 +61,4 @@ Using the same body, include the `overwrite` boolean attribute inside of **"inst
 
 ### Deleting Data
 
-(DELETE Request: https://sparkling-sun-qvwjh.cloud.serverless.com/:keyName)
+(DELETE Request: `/data/:keyName`)
