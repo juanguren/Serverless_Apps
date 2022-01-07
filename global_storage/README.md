@@ -12,7 +12,7 @@ Its purpose: Storing and retrieving data on the go 🤷
 
 ### Saving, Updating and Overwriting Data
 
-(POST Request: https://sparkling-sun-qvwjh.cloud.serverless.com)
+(POST Request: https://sparkling-sun-qvwjh.cloud.serverless.com/data)
 
 #### SEND
 
@@ -55,7 +55,7 @@ Using the same body, include the `overwrite` boolean attribute inside of **"inst
 
 [Check out an example](https://icy-wood-rwis4.cloud.serverless.com/data/testKey)
 
-- Header => [ api_key: test_token2465 ]
+- Use the following header for the example => [ api_key: test_token2465 ]
 
 ### Deleting Data
 
