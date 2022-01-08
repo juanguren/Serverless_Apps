@@ -44,10 +44,12 @@ const checkTokenCoincides = async (
       return next();
     } else {
       const { key } = req.params;
-      const { token: existingToken } = await getExistingKey(key); // TODO: Fix retrieving an unexistant key
-
-      if (api_key == existingToken) return next();
-      throw keyNameClaimedErrorMsg;
+      const data = await getExistingKey(key);
+      if (data) {
+        if (api_key == data.token) return next();
+        throw keyNameClaimedErrorMsg;
+      }
+      return next();
     }
   } catch (error) {
     const { code, message } = error;
