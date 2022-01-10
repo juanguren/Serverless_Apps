@@ -3,7 +3,7 @@ import { postDataHandler } from './src/controllers/dataHandler';
 import {
   getExistingKey,
   validateUserToken,
-  checkTokenCoincides,
+  userKeyGuard,
 } from './src/controllers/validators';
 import {
   AcceptedData,
@@ -18,7 +18,7 @@ api.get('/', (req, res) =>
   res.status(200).json({ message: 'Healthy' }),
 );
 
-api.get('/data/:key', checkTokenCoincides, async (req, res) => {
+api.get('/data/:key', userKeyGuard, async (req, res) => {
   const { key } = req.params;
   try {
     const response = await data.get(key);
@@ -36,7 +36,7 @@ api.get('/data/:key', checkTokenCoincides, async (req, res) => {
   }
 });
 
-api.post('/data', checkTokenCoincides, async (req, res) => {
+api.post('/data', userKeyGuard, async (req, res) => {
   const { content, instructions } = req.body;
   const { keyName } = instructions;
   let action: DataAction = DataAction.CREATE;
@@ -59,7 +59,7 @@ api.post('/data', checkTokenCoincides, async (req, res) => {
   }
 });
 
-api.delete('/data/:key', checkTokenCoincides, async (req, res) => {
+api.delete('/data/:key', userKeyGuard, async (req, res) => {
   const { key: keyName } = req.params;
   try {
     const response = await data.remove(keyName);

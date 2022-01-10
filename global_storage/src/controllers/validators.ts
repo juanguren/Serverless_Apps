@@ -23,11 +23,7 @@ const validateUserToken = (req, res, next: CallableFunction) => {
   }
 };
 
-const checkTokenCoincides = async (
-  req,
-  res,
-  next: CallableFunction,
-) => {
+const userKeyGuard = async (req, res, next: CallableFunction) => {
   const { api_key } = req.headers;
   const keyNameClaimedErrorMsg = {
     message: 'Key Name has already being claimed.',
@@ -57,4 +53,4 @@ const checkTokenCoincides = async (
   }
 };
 
-export { getExistingKey, validateUserToken, checkTokenCoincides };
+export { getExistingKey, validateUserToken, userKeyGuard };
