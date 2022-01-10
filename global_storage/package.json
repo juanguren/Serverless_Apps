@@ -16,5 +16,10 @@
   "serverless": {
     "app": "global_storage",
     "org": "juanguren"
+  },
+  "dependencies": {
+    "@types/supertest": "^2.0.11",
+    "jest": "^27.4.7",
+    "supertest": "^6.1.6"
   }
 }
