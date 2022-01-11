@@ -17,15 +17,18 @@ test("should return a 'Healthy' 200 status", async () => {
 });
 
 describe('Main', () => {
-  const content = { 'Content-Type': 'application/json' };
   const { API_KEY_TEST } = process.env;
+  const content = { 'Content-Type': 'application/json' };
+  const headers = { api_key: API_KEY_TEST };
 
-  it('Should correctly retrieve data', async () => {
-    const response = await request(api)
-      .get('/data/testKey')
-      .set({ api_key: API_KEY_TEST });
+  describe('GET Data', () => {
+    it('Should correctly retrieve data', async () => {
+      const response = await request(api)
+        .get('/data/testKey')
+        .set(headers);
 
-    expect(response.statusCode).toBe(200);
-    expect(response.body).toMatchObject(validGetResponse);
+      expect(response.statusCode).toBe(200);
+      expect(response.body).toMatchObject(validGetResponse);
+    });
   });
 });
