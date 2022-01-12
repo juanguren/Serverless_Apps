@@ -1,6 +1,11 @@
 import { api, data } from '@serverless/cloud';
 import dotenv from 'dotenv';
-import { validGetResponse, getKey, mockPostBody } from './mocks';
+import {
+  validGetResponse,
+  getKey,
+  mockPostBody,
+  incompleteRequestBody,
+} from './mocks';
 //import { jest } from '@jest/globals';
 
 dotenv.config();
@@ -67,10 +72,16 @@ describe('Main', () => {
       expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('message');
       expect(response.body).toHaveProperty('keyName');
+      await data.remove(newKey);
     });
 
-    afterAll(async () => {
-      await data.remove(newKey);
+    it('Should return an error if the content object of the body is empty or non-existant', async () => {
+      const requestBody = incompleteRequestBody;
+
+      const response = await api
+        .post('/data')
+        .invoke(requestBody, { headers });
+      console.log({ response }); // TODO: Fix empty-content validation on index.ts (Object.entries prob)
     });
   });
 
