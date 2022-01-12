@@ -14,6 +14,14 @@ const validGetResponse = {
   },
 };
 
+const incompleteRequestBody = {
+  content: {},
+  instructions: {
+    keyName: 'testKey199_',
+    overwrite: true,
+  },
+};
+
 const mockPostBody = (key: string) => {
   return {
     content: {
@@ -31,4 +39,9 @@ const mockPostBody = (key: string) => {
   };
 };
 
-export { getKey, mockPostBody, validGetResponse };
+export {
+  getKey,
+  mockPostBody,
+  validGetResponse,
+  incompleteRequestBody,
+};
