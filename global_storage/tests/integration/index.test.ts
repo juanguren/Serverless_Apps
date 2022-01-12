@@ -43,7 +43,7 @@ describe('Main', () => {
 
     it('Should return a 404 error when searching by a non-existant key', async () => {
       const expectedResponse = {
-        message: 'No data associated with the yeet key',
+        message: `No data associated with the ${getKey(false)} key`,
       };
 
       const response = await api
