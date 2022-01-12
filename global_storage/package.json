@@ -20,7 +20,6 @@
   "dependencies": {
     "@types/supertest": "^2.0.11",
     "dotenv": "^10.0.0",
-    "jest": "^27.4.7",
-    "supertest": "^6.1.6"
+    "jest": "^27.4.7"
   }
 }

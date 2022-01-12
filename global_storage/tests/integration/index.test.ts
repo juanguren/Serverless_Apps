@@ -1,5 +1,4 @@
 import { api } from '@serverless/cloud';
-import request from 'supertest';
 import dotenv from 'dotenv';
 import { validGetResponse, getKey, mockPostBody } from './mocks';
 //import { jest } from '@jest/globals';
@@ -23,11 +22,11 @@ describe('Main', () => {
 
   describe('GET Data', () => {
     it('Should correctly retrieve data', async () => {
-      const response = await request(api)
+      const response = await api
         .get(`/data/${getKey()}`)
-        .set(headers);
+        .invoke(undefined, { headers });
 
-      expect(response.statusCode).toBe(200);
+      expect(response.status).toBe(200);
       expect(response.body).toMatchObject(validGetResponse);
     });
   });
@@ -35,10 +34,11 @@ describe('Main', () => {
   describe('POST Data', () => {
     it('Should succesfully set a data record', async () => {
       const newKey = 'test_item';
-      const response = await request(api)
+      const requestBody = mockPostBody(newKey);
+
+      const response = await api
         .post('/data')
-        .set(headers)
-        .send(mockPostBody(newKey));
+        .invoke(requestBody, { headers });
 
       expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('message');
