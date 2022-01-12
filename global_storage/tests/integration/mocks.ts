@@ -5,7 +5,7 @@ const getKey = (isMock = true) => {
 
 const validGetResponse = {
   data: {
-    test: 'wohooo',
+    test: 'Once moree',
     test2: [
       {
         user: 'Juan',

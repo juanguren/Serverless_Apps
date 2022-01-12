@@ -26,6 +26,33 @@ describe('Main', () => {
       expect(response.status).toBe(200);
       expect(response.body).toMatchObject(validGetResponse);
     });
+
+    it('Should respond with an unauthorized error in case incorrect header is used', async () => {
+      const badKey = { api_key: 'HEY' };
+      const expectedResponse = {
+        message: 'Incorrect token. User is not authenticated',
+      };
+
+      const response = await api
+        .get(`/data/${getKey()}`)
+        .invoke(undefined, { headers: badKey });
+
+      expect(response.status).toBe(403);
+      expect(response.body).toMatchObject(expectedResponse);
+    });
+
+    it('Should return a 404 error when searching by a non-existant key', async () => {
+      const expectedResponse = {
+        message: 'No data associated with the yeet key',
+      };
+
+      const response = await api
+        .get(`/data/${getKey(false)}`)
+        .invoke(undefined, { headers });
+
+      expect(response.status).toBe(404);
+      expect(response.body).toMatchObject(expectedResponse);
+    });
   });
 
   describe('POST Data', () => {
