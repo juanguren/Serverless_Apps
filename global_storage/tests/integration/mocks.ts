@@ -5,7 +5,7 @@ const getKey = (isMock = true) => {
 
 const validGetResponse = {
   data: {
-    test: 'Once moree',
+    test: 'wohooo',
     test2: [
       {
         user: 'Juan',
@@ -17,7 +17,7 @@ const validGetResponse = {
 const mockPostBody = (key: string) => {
   return {
     content: {
-      test: 'Once moree',
+      test: 'wohooo',
       test2: [
         {
           user: 'Juan',
