@@ -11,12 +11,12 @@ import {
 } from './src/interfaces/dataInterfaces';
 import { removeTokenFromPayload } from './src/utils/utils';
 
-// Application-level middleware
-api.use(validateUserToken);
-
 api.get('/', (req, res) =>
   res.status(200).json({ message: 'Healthy' }),
 );
+
+// Application-level middleware
+api.use(validateUserToken);
 
 api.get('/data/:key', userKeyGuard, async (req, res) => {
   const { key } = req.params;

@@ -9,12 +9,17 @@
     "test": "cloud test"
   },
   "devDependencies": {
-    "@serverless/cloud": "^2.6.2",
+    "@serverless/cloud": "^2.6.3",
     "@types/jest": "^26.0.24",
     "prettier": "^2.5.1"
   },
   "serverless": {
     "app": "global_storage",
     "org": "juanguren"
+  },
+  "dependencies": {
+    "@types/supertest": "^2.0.11",
+    "dotenv": "^10.0.0",
+    "jest": "^27.4.7"
   }
 }
