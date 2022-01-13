@@ -41,8 +41,9 @@ api.post('/data', userKeyGuard, async (req, res) => {
   const { keyName } = instructions;
   let action: DataAction = DataAction.CREATE;
 
+  const contentValue = Object.entries(content);
   try {
-    if (content || content.length > 0) {
+    if (contentValue.length > 0) {
       const data: AcceptedData = {
         content,
         instructions,

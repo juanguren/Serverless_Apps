@@ -77,11 +77,14 @@ describe('Main', () => {
 
     it('Should return an error if the content object of the body is empty or non-existant', async () => {
       const requestBody = incompleteRequestBody;
+      const expectedResponse = { message: 'Empty content key' };
 
       const response = await api
         .post('/data')
         .invoke(requestBody, { headers });
-      console.log({ response }); // TODO: Fix empty-content validation on index.ts (Object.entries prob)
+
+      expect(response.status).toBe(400);
+      expect(response.body).toMatchObject(expectedResponse);
     });
   });
 
