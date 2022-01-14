@@ -1,4 +1,4 @@
-import { api, data, schedule, params } from '@serverless/cloud';
+import { api, data } from '@serverless/cloud';
 import { postDataHandler } from './src/controllers/dataHandler';
 import {
   getExistingKey,
@@ -9,11 +9,16 @@ import {
   AcceptedData,
   DataAction,
 } from './src/interfaces/dataInterfaces';
+import { healthCheckCron } from './src/crons/healthCheck';
 import { removeTokenFromPayload } from './src/utils/utils';
 
-api.get('/', (req, res) =>
-  res.status(200).json({ message: 'Healthy' }),
-);
+healthCheckCron();
+
+api.get('/', (req, res) => {
+  res.status(200).json({
+    message: 'Healthy',
+  });
+});
 
 // Application-level middleware
 api.use(validateUserToken);
