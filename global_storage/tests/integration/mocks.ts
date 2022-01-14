@@ -5,12 +5,20 @@ const getKey = (isMock = true) => {
 
 const validGetResponse = {
   data: {
-    test: 'wohooo',
+    test: 'Once moree',
     test2: [
       {
         user: 'Juan',
       },
     ],
+  },
+};
+
+const incompleteRequestBody = {
+  content: {},
+  instructions: {
+    keyName: 'testKey199_',
+    overwrite: true,
   },
 };
 
@@ -31,4 +39,9 @@ const mockPostBody = (key: string) => {
   };
 };
 
-export { getKey, mockPostBody, validGetResponse };
+export {
+  getKey,
+  mockPostBody,
+  validGetResponse,
+  incompleteRequestBody,
+};
