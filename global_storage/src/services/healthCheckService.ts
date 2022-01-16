@@ -7,7 +7,10 @@ const requestHealthEndpoint = async (url: string) => {
     const isHealthy = response.status;
     if (isHealthy == acceptedCode) return true;
 
-    throw `Warning: ${isHealthy} service status`;
+    throw {
+      name: 'Global Array Error',
+      message: `Warning: ${isHealthy} service status`,
+    };
   } catch (error) {
     return error;
   }
