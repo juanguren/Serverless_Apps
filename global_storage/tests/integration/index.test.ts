@@ -6,7 +6,6 @@ import {
   mockPostBody,
   incompleteRequestBody,
 } from './mocks';
-//import { jest } from '@jest/globals';
 
 dotenv.config();
 
