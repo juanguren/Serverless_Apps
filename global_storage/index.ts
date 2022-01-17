@@ -79,7 +79,7 @@ api.delete('/data/:key', userKeyGuard, async (req, res) => {
   }
 });
 
-// Redirect to save's endpoint
+// Redirects back to Health endpoint
 api.post('/*', (req, res) => {
   res.redirect('/');
 });
