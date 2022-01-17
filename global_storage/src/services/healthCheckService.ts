@@ -12,7 +12,10 @@ const requestHealthEndpoint = async (url: string) => {
       message: `Warning: ${isHealthy} service status`,
     };
   } catch (error) {
-    return error;
+    return {
+      name: 'Global Array Error',
+      message: error,
+    };
   }
 };
 
