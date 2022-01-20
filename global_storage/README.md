@@ -4,14 +4,18 @@ This project aims to create a literal Global Array API. Available to small, acad
 
 Its purpose: Storing and retrieving data on the go 🤷
 
+---
+
 ### Base URL: https://sparkling-sun-qvwjh.cloud.serverless.com
 
 - Save/Update/Overwrite (POST): `/data`
 - Retrieve (GET): `/data/:keyName`
 - Delete (DELETE): `/data/:keyName`
 
-#
-
+#### Headers:
+- __key__: `api_key`
+- __value__: [Shoot me an email!](https://juanguren.github.io/)
+---
 ### Saving, Updating and Overwriting Data
 
 (POST Request: `/data`)
