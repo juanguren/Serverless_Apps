@@ -66,3 +66,8 @@ Using the same body, include the `overwrite` boolean attribute inside of **"inst
 ### Deleting Data
 
 (DELETE Request: `/data/:keyName`)
+
+---
+## Special Modules:
+- Health check cron: A scheduler function running every 30 minutes. Checks the status of the app.
+- Email Service (optional): If an error is identified on the network, an email may be sent as a "wake-up call". (current recipient: myself 😅)
