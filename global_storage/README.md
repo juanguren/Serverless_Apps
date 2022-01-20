@@ -1,8 +1,8 @@
 # Global Array
 
-This project aims to create a literal Global Array API. Available to small, academic or experimental projects as a realiable and easy to use storage solution. No hosting, no database.
+This project is a literal Global Array. It's a storage API available to experimental, Proof of Concept, academic or hackathon-related projects as a realiable and easy to use storage solution. No hosting, no database.
 
-Its purpose: Storing and retrieving data on the go 🤷
+Its purpose: __Storing, updating, retrieving and also erasing JSON data on the go__ 🤷
 
 ---
 
