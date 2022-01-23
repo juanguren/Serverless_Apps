@@ -1,6 +1,6 @@
 # Global Array
 
-This project is a literal Global Array. It's a storage API available to experimental, Proof of Concept, academic or hackathon-related projects as a realiable and easy to use storage solution. No hosting, no database.
+This project is a literal Global Array. It's a storage, cloud-hosted API available to experimental, Proof of Concept, academic or hackathon-related projects as a realiable and easy to use storage solution. No hosting, no database.
 
 Its purpose: __Storing, updating, retrieving and also erasing JSON data on the go__ 🤷
 
@@ -12,9 +12,9 @@ Its purpose: __Storing, updating, retrieving and also erasing JSON data on the g
 - Retrieve (GET): `/data/:keyName`
 - Delete (DELETE): `/data/:keyName`
 
-#### Headers:
+#### Authentication Headers:
 - __key__: `api_key`
-- __value__: [Shoot me an email!](https://juanguren.github.io/)
+- __value__: I will create your own personal token, so [shoot me an email!](https://juanguren.github.io/)
 ---
 ### Saving, Updating and Overwriting Data
 
@@ -66,3 +66,8 @@ Using the same body, include the `overwrite` boolean attribute inside of **"inst
 ### Deleting Data
 
 (DELETE Request: `/data/:keyName`)
+
+---
+## Special Modules:
+- Health check cron: A scheduler function running every 30 minutes. Checks the status of the app.
+- Email Service (optional): If an error is identified on the network, an email may be sent as a "wake-up call". (current recipient: myself 😅)
