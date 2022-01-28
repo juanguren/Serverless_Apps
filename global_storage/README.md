@@ -27,7 +27,7 @@ Make a request using the following JSON-parsed body structure:
 ```
 {
     "content": {
-      'object(s) go in here..'
+      'your data goes in here..'
     },
     "instructions": {
         "keyName": "testKey"
