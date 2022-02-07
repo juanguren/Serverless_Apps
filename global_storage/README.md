@@ -1,6 +1,6 @@
 # Global Array
 
-This project is a literal Global Array. It's a storage, cloud-hosted API available to experimental, Proof of Concept, academic or hackathon-related projects as a realiable and easy to use storage solution. No hosting, no database.
+This project is a serverless API for (JSON) data storage. It is available to experimental, Proof of Concept, academic or hackathon-related projects as a realiable and easy to use storage solution. No hosting, no database.
 
 Its purpose: __Storing, updating, retrieving and also erasing JSON data on the go__ 🤷
 
