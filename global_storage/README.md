@@ -34,6 +34,7 @@ Make a request using the following JSON-parsed body structure:
     }
 }
 ```
+![image](https://user-images.githubusercontent.com/34801285/152713399-4151e8a3-d0aa-4f46-b47c-d6a76e318632.png)
 
 #### UPDATE DATA
 
@@ -58,6 +59,9 @@ Using the same body, include the `overwrite` boolean attribute inside of **"inst
 ### Retrieving Data
 
 (GET Request: `/data/:keyName`)
+
+![image](https://user-images.githubusercontent.com/34801285/152711767-24d40433-22e0-429b-a4dd-0e41309de99e.png)
+
 
 [Check out an example](https://icy-wood-rwis4.cloud.serverless.com/data/testKey)
 
