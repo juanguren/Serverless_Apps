@@ -1,5 +1,5 @@
-import { api, data, schedule, params } from "@serverless/cloud";
-import { nanoid } from "nanoid";
-import { handleInputData } from "./src/middlewares/dataInput";
+import { api } from "@serverless/cloud";
+import { handleInputData, handleOutputData } from "./src/middlewares/dataIO";
 
 api.post("/users", handleInputData);
+api.get("/users:userId", handleOutputData);

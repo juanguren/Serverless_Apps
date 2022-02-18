@@ -10,6 +10,6 @@ export interface IUser {
 }
 
 export interface IUserSecure {
-  password: string;
+  password?: string;
   accountNumber: string;
 }
