@@ -5,7 +5,7 @@ const SECRET_KEY = "a1b2c3d4";
 const KEY = "encrypted account number";
 const IV = "555s5d55f5OPP__)";
 const HASHING_ALGORITHM = "sha256";
-const CIPHER_DECIPHER_ALGORITHM = "aes-192-ccm";
+const CIPHER_DECIPHER_ALGORITHM = "aes192";
 
 const encryptUserData = (secureData: IUserSecure): IUserSecure => {
   const { accountNumber, password } = secureData;
@@ -25,14 +25,16 @@ const encryptUserData = (secureData: IUserSecure): IUserSecure => {
 };
 
 const decryptUserData = (secureData: IUserSecure): IUserSecure => {
-  const { accountNumber } = secureData;
+  const { accountNumber, password } = secureData;
   const decipher = createDecipheriv(CIPHER_DECIPHER_ALGORITHM, KEY, IV);
+
   let decryptedAccountNumber = decipher.update(accountNumber, "hex", "utf8");
 
   decryptedAccountNumber += decipher.final("utf8");
 
   return {
     accountNumber: decryptedAccountNumber,
+    password,
   };
 };
 

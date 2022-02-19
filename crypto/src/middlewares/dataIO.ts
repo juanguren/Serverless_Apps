@@ -28,8 +28,8 @@ const handleOutputData = async (req, res) => {
 
     const user = (await data.get(userId)) as IUser;
     const { secure: userCredentials } = user;
-    const deTokenizedUserData: IUserSecure = decryptUserData(userCredentials);
 
+    const deTokenizedUserData: IUserSecure = decryptUserData(userCredentials);
     user["secure"] = deTokenizedUserData;
 
     return res.status(200).json(user);
