@@ -4,6 +4,12 @@ This project is a serverless API for (JSON) data storage. It is available to exp
 
 Its purpose: __Storing, updating, retrieving and also erasing JSON data on the go__ 🤷
 
+## Using Global Array:
+There are two ways of accessing this API:
+
+1. Fork it on Serverless Cloud [here](https://cloud.serverless.com/juanguren/global_storage). This way you'll have your own personal storage API, which can be scaled for you or your team as much as you like. 
+2. Request an authentication token and start sending requests to the URLs (the process is explanied below).
+
 ---
 
 ### Base URL: https://sparkling-sun-qvwjh.cloud.serverless.com
