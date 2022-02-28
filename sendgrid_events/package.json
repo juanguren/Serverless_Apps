@@ -15,5 +15,8 @@
   "serverless": {
     "app": "sendgrid-events",
     "org": "juanguren"
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^7.6.1"
   }
 }
