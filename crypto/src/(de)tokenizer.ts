@@ -2,13 +2,13 @@ import { IUserSecure } from "./interfaces";
 import { createHmac, createCipheriv, createDecipheriv } from "crypto";
 
 // ! Hashing
-const SECRET_KEY = "a1b2c3d4";
+const SECRET_KEY = "a1b2c3d4"; // * This should deffinitely be longer and more random!
 const HASHING_ALGORITHM = "sha256"; // special algo 1
 
 // ! Chiper-Decipher
 const KEY = "encrypted account number"; // Private Key
 const IV = "555s5d55f5OPP__)"; // Nonce or: random number used in combination with a secret key as a means to encrypt data
-const CIPHER_DECIPHER_ALGORITHM = "aes192"; // // special algo 1
+const CIPHER_DECIPHER_ALGORITHM = "aes192"; // special algo 2
 
 const encryptUserData = (secureData: IUserSecure): IUserSecure => {
   const { accountNumber, password } = secureData;
