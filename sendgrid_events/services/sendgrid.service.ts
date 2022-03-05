@@ -10,8 +10,6 @@ import { throwError } from '../helpers/error.helper';
 
 const { SENDGRID_KEY } = params;
 
-// SENDGRID_KEY=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
-
 export const handleEmailOperations = async (
   req: Request,
   res: Response,
