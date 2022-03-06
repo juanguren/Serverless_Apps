@@ -14,15 +14,13 @@ export const sendEmail = async (recipient: string) => {
       const emailObject: ISendGrid = {
         to: recipient,
         from: 'juanararo@unisabana.edu.co',
-        subject: '',
-        text: '',
-        html: '',
+        subject: 'Welcome to Serverless Cloud!',
+        text: 'Lorem Ipsum etc, etc...',
+        html: '<strong>Like a baws</strong>',
       };
-      await mail.send(emailObject);
+      const response = await mail.send(emailObject);
 
-      logger.info(`Email sent to ${recipient}`);
-
-      return { message: 'Message sent', recipient };
+      return { recipient, response };
     } else {
       throw {
         message: 'No sendgrid key found',
