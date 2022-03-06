@@ -15,7 +15,7 @@ export const userRegistration = async (
     user['id'] = id;
 
     const createdUser = await data.set(`${id}`, {
-      user,
+      ...user,
       createdAt: new Date().toISOString(),
     });
 
