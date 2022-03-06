@@ -1,16 +1,12 @@
-import { api, data, schedule, params } from '@serverless/cloud';
+import { api, Request, Response } from '@serverless/cloud';
+import { userRegistration } from './middlewares/user.service';
 
-// Create GET route and return users
-api.get('/users', async (req, res) => {
-  // Get users from Serverless Data
-  let result = (await data.get('user:*', true)) as any;
-  // Return the results
-  res.send({
-    users: result.items,
-  });
+api.get('/main', (req: Request, res: Response) => {
+  res.send('OK');
 });
 
-// Redirect to users endpoint
+api.get('/signup', userRegistration);
+
 api.get('/*', (req, res) => {
-  res.redirect('/users');
+  res.redirect('/main');
 });
