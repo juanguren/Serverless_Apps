@@ -1,18 +1,15 @@
 import { Request, Response } from '@serverless/cloud';
-
-interface IHttpError {
-  error?: Error;
-  message: string;
-  code: number;
-}
+import { IHttpError } from './types';
 
 const throwError = (
-  req: Request,
+  _req: Request,
   res: Response,
   exception: IHttpError,
 ) => {
-  const { error, message, code } = exception;
-  return res.status(code).json({ message, error });
+  const { error } = exception;
+  const { errorContent, message, code } = error;
+
+  return res.status(code).json({ message, error: errorContent });
 };
 
 export { throwError };
