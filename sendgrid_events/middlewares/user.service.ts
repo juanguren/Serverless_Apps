@@ -12,7 +12,6 @@ export const userRegistration = async (
 ) => {
   try {
     const user = req.body;
-    const { username } = user;
     const id = nanoid();
     user['id'] = id;
 

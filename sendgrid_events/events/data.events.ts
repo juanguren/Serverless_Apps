@@ -3,7 +3,6 @@ import { LoggerFactory } from '../factories/abstract/logger-class';
 import { sendEmail } from '../services/sendgrid.service';
 
 const logger = LoggerFactory.createLogger();
-
 interface IUser {
   firstName: string;
   lastName: string;
