@@ -3,6 +3,6 @@ import { userRegistration } from './middlewares/user.service';
 
 api.get('/main', (req: Request, res: Response) => res.send('OK'));
 
-api.get('/signup', userRegistration);
+api.post('/signup', userRegistration);
 
 api.get('/*', (req: Request, res: Response) => res.redirect('/main'));
