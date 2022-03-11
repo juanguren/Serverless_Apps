@@ -10,7 +10,8 @@
   },
   "devDependencies": {
     "@serverless/cloud": "^2.7.1",
-    "@types/jest": "^26.0.24"
+    "@types/jest": "^26.0.24",
+    "axios": "^0.26.1"
   },
   "serverless": {
     "app": "sendgrid-events",
