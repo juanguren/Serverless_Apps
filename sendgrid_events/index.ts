@@ -1,6 +1,6 @@
 import { api, Request, Response } from '@serverless/cloud';
-import { userRegistration } from './middlewares/user.service';
-import getJsonApiData from './middlewares/json-promise.service';
+import { userRegistration } from './middlewares/user-registration';
+import getJsonApiData from './services/json-promise.service';
 
 api.get('/main', (req: Request, res: Response) => res.send('OK'));
 
