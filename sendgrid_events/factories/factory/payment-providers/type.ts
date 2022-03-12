@@ -6,7 +6,7 @@ export interface Commission {
   (value: number): number;
 }
 
-export enum PaymentProvider {
+export enum PaymentProviders {
   Visa = 'VISA',
   MasterCard = 'MASTERCARD',
 }

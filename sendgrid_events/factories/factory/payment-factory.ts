@@ -1,19 +1,19 @@
-import { Visa } from './payment-providers/mastercard';
 import {
   IPaymentProvider,
-  PaymentProvider,
+  PaymentProviders,
 } from './payment-providers/type';
+import { Visa } from './payment-providers/mastercard';
 import { MasterCard } from './payment-providers/visa';
 
 export class PaymentFactory {
   public static createPaymentType(
-    type: PaymentProvider,
+    provider: PaymentProviders,
   ): IPaymentProvider {
     const providerSelector = {
       VISA: new Visa(),
       MASTERCARD: new MasterCard(),
     };
 
-    return providerSelector[type];
+    return providerSelector[provider];
   }
 }

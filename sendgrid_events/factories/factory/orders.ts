@@ -1,13 +1,27 @@
 // Classify the payment commission by payment provider
 
-import { PaymentProvider } from './payment-providers/type';
+import { PaymentFactory } from './payment-factory';
+import {
+  IPaymentProvider,
+  PaymentProviders,
+} from './payment-providers/type';
 
 export class Order {
   public id: string;
-  public paymentProvider: PaymentProvider;
+  public comission: number = 0;
+  public paymentProvider: IPaymentProvider;
   public paymentStatus: PaymentComplete;
 
-  constructor(private type: string, public amount: number) {}
+  constructor(
+    private provider: PaymentProviders,
+    public amount: number,
+  ) {}
 
-  public create(): void {}
+  public create(): void {
+    this.paymentProvider = PaymentFactory.createPaymentType(
+      this.provider,
+    );
+
+    this.comission = this.paymentProvider.commission(this.amount);
+  }
 }
