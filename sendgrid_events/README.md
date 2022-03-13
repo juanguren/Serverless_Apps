@@ -1,3 +1,13 @@
 # Serverless Cloud TypeScript API
 
-- [Link](https://www.youtube.com/watch?v=YJVcK96wNPs)
+```
+{
+    "username": "hugocon",
+    "items": [
+        5,
+        10,
+        3,
+        22
+    ]
+}
+```

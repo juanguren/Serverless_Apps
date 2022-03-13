@@ -1,21 +1,18 @@
 import { api, Request, Response } from '@serverless/cloud';
-import { Order } from './factories/factory/orders';
+import {
+  generateOrder,
+  validateUser,
+} from './middlewares/order-generation';
 import { userRegistration } from './middlewares/user-registration';
-import getJsonApiData from './services/json-promise.service';
 
-api.get('/main', (req: Request, res: Response) => res.send('OK'));
+api.get('/main', (_req: Request, res: Response) => res.send('OK'));
 
+// Register users and trigger an event that delivers an email to each
 api.post('/signup', userRegistration);
 
-api.get('/promises', getJsonApiData);
+// Select the payment provider and create an order
+api.post('/:provider/', validateUser, generateOrder);
 
-api.get('/:payment/:amount', async (req: Request, res: Response) => {
-  const { payment, amount } = req.params;
-
-  const order = new Order(payment, amount);
-  order.create();
-
-  res.send(order);
-});
-
-api.get('/*', (req: Request, res: Response) => res.redirect('/main'));
+api.get('/*', (_req: Request, res: Response) =>
+  res.redirect('/main'),
+);

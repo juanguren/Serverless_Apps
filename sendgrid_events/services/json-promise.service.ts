@@ -1,7 +1,6 @@
-import { Request, Response } from '@serverless/cloud';
 import axios from 'axios';
 
-const getJsonApiData = async (req: Request, res: Response) => {
+const getJsonApiData = async (references: number[]) => {
   const fetchData = async (element: number) => {
     const promise = await axios.get(
       `https://jsonplaceholder.typicode.com/todos/${element}`,
@@ -9,15 +8,14 @@ const getJsonApiData = async (req: Request, res: Response) => {
 
     return promise.data;
   };
-  const iterable = [1, 10, 5, 3];
 
-  const promises = iterable.map((element: number) =>
+  const promises = references.map((element: number) =>
     fetchData(element),
   );
 
   const resolvedData = await Promise.all(promises);
 
-  res.send(resolvedData);
+  return resolvedData;
 };
 
 export default getJsonApiData;
