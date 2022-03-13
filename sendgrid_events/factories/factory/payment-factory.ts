@@ -6,7 +6,7 @@ import { Visa } from './payment-providers/mastercard';
 import { MasterCard } from './payment-providers/visa';
 
 export class PaymentFactory {
-  public static createPaymentType(
+  public static getPaymentProvider(
     provider: PaymentProviders,
   ): IPaymentProvider {
     const providerSelector = {
