@@ -1,5 +1,5 @@
 import { data } from '@serverless/cloud';
-import { LoggerFactory } from '../factories/abstract/logger-class';
+import { LoggerFactory } from '../factories/abstract-logger/logger-class';
 import { sendEmail } from '../services/sendgrid.service';
 
 const logger = LoggerFactory.createLogger();

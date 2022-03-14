@@ -1,7 +1,7 @@
 import { data, Request, Response } from '@serverless/cloud';
 import { throwError } from '../helpers/error.helper';
 import { nanoid } from 'nanoid';
-import { LoggerFactory } from '../factories/abstract/logger-class';
+import { LoggerFactory } from '../factories/abstract-logger/logger-class';
 import { UserManager } from '../events/data.events';
 
 const logger = LoggerFactory.createLogger();
