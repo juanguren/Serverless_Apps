@@ -27,6 +27,7 @@ export class Order {
     public itemIds: number[],
   ) {
     this.id = nanoid();
+    this.paymentStatus = 'unknown';
   }
 
   public async create(): Promise<IOrder> {
@@ -45,7 +46,7 @@ export class Order {
         id: this.id,
         items: this.items,
         totalPrice: this.comission + itemAmmount,
-        paymentStatus: 'unknown',
+        paymentStatus: this.paymentStatus,
       };
     } catch (error) {
       throw error;
