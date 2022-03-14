@@ -1,7 +1,7 @@
 import { data, params } from '@serverless/cloud';
 import mail from '@sendgrid/mail';
 import { ISendGrid } from '../middlewares/types';
-import { LoggerFactory } from '../factories/abstract/logger-class';
+import { LoggerFactory } from '../factories/abstract-logger/logger-class';
 
 const { SENDGRID_KEY } = params;
 const logger = LoggerFactory.createLogger();
