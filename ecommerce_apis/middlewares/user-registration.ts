@@ -9,14 +9,15 @@ import EventBus from '../events/event.bus';
 const logger = LoggerFactory.createLogger();
 const event = new EventBus();
 
+export enum EmailTemplates {
+  WELCOME_MESSAGE = 'Welcome to the Ecommerce API!',
+  FOLLOW_UP_MESSAGE = "Hey! Don't forget to check out our new products!",
+}
+
 export const userRegistration = async (
   req: Request,
   res: Response,
 ) => {
-  event.listen('hey', async (body) => {
-    logger.info(body);
-  });
-
   try {
     const user = req.body as IUser;
     const { username } = user;
@@ -32,9 +33,10 @@ export const userRegistration = async (
       createdAt: new Date().toISOString(),
     });
 
-    event.emit('hey', 'HEEEEY');
-
     await events.publish('user.created', savedNewUser);
+    await events.publish('user.followUp', savedNewUser, {
+      after: '1 day',
+    });
 
     res.send({ newUser: savedNewUser });
   } catch (error) {
@@ -43,21 +45,39 @@ export const userRegistration = async (
   }
 };
 
-const userExists = async (username: string) => {
-  const response = await data.get(username);
-
-  return response;
-};
+const userExists = async (username: string) =>
+  await data.get(username);
 
 events.on('user.created', async ({ body }) => {
   const { email: userEmail } = body;
   try {
-    const emailOperation = await sendEmail(userEmail);
+    const emailOperation = await sendEmail(
+      userEmail,
+      EmailTemplates.WELCOME_MESSAGE,
+    );
 
     logger.info(
       `${emailOperation.response} Email sent to ${emailOperation.recipient}`,
     );
   } catch (error) {
     logger.error({ error });
+    throw error;
+  }
+});
+
+events.on('user.followUp', async ({ body }) => {
+  const { email: userEmail } = body;
+  try {
+    const emailOperation = await sendEmail(
+      userEmail,
+      EmailTemplates.FOLLOW_UP_MESSAGE,
+    );
+
+    logger.info(
+      `${emailOperation.response} Follow Up email sent to ${emailOperation.recipient}`,
+    );
+  } catch (error) {
+    logger.error({ error });
+    throw error;
   }
 });
