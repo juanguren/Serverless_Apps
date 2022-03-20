@@ -8,7 +8,7 @@ import { PaymentFactory } from './payment-factory';
 import getJsonApiData from '../../services/json-promise.service';
 import { nanoid } from 'nanoid';
 
-interface IOrder {
+export interface IOrder {
   id: string;
   items: object[];
   totalPrice: number;

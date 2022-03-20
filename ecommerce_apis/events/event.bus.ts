@@ -1,4 +1,3 @@
-import { events } from '@serverless/cloud';
 import { EventEmitter } from 'events';
 
 /**

@@ -9,7 +9,7 @@
     "test": "cloud test"
   },
   "devDependencies": {
-    "@serverless/cloud": "^2.7.2",
+    "@serverless/cloud": "^2.7.5",
     "@types/jest": "^26.0.24",
     "axios": "^0.26.1",
     "nanoid": "^3.3.1"
