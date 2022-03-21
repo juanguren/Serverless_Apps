@@ -1,90 +1,43 @@
-import { api, data } from '@serverless/cloud';
-import { postDataHandler } from './src/controllers/dataHandler';
+import { api, Request, Response } from '@serverless/cloud';
 import {
-  getExistingKey,
   validateUserToken,
   userKeyGuard,
-} from './src/controllers/validators';
-import {
-  AcceptedData,
-  DataAction,
-} from './src/interfaces/dataInterfaces';
+} from './src/helpers/validators';
 import { healthCheckCron } from './src/crons/healthCheck';
-import { removeTokenFromPayload } from './src/utils/utils';
+import {
+  createDataRecord,
+  deleteDataRecord,
+  getDataRecord,
+} from './src/middleware/data';
 
+// Starts the health cron job
 healthCheckCron();
 
-api.get('/', (req, res) => {
+// Health endpoint
+api.get('/', (req: Request, res: Response) => {
   res.status(200).json({
     message: 'Healthy',
   });
 });
 
 // Application-level middleware
+// Validates user token exists as a secret in serverless cloud's dashboard
 api.use(validateUserToken);
 
-api.get('/data/:key', userKeyGuard, async (req, res) => {
-  const { key } = req.params;
-  try {
-    const response = await data.get(key);
-    if (response) {
-      const payload = removeTokenFromPayload(response);
-      return res.status(200).json({ data: payload });
-    }
-    throw {
-      message: `No data associated with the ${key} key`,
-      code: 404,
-    };
-  } catch (error) {
-    const { message, code } = error;
-    return res.status(code || 500).json({ message });
-  }
-});
+// Retrieves data record by key
+api.get('/data/:key', userKeyGuard, getDataRecord);
 
-api.post('/data', userKeyGuard, async (req, res) => {
-  const { content, instructions } = req.body;
-  const { keyName } = instructions;
-  let action: DataAction = DataAction.CREATE;
+// Creates a new data record
+api.post('/data', userKeyGuard, createDataRecord);
 
-  const contentValue = Object.entries(content);
-  try {
-    if (contentValue.length > 0) {
-      const data: AcceptedData = {
-        content,
-        instructions,
-      };
-      if (await getExistingKey(keyName)) action = DataAction.UPDATE;
-
-      return await postDataHandler(req, res, data, action);
-    } else {
-      throw { message: 'Empty content key' };
-    }
-  } catch (error) {
-    const { message, code = 400 } = error;
-    return res.status(code).json({ message });
-  }
-});
-
-api.delete('/data/:key', userKeyGuard, async (req, res) => {
-  const { key: keyName } = req.params;
-  try {
-    const response = await data.remove(keyName);
-    if (response)
-      return res
-        .status(200)
-        .json({ message: 'Entry deleted succesfully' });
-    throw 'Server error';
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
+// Erases an existing data record
+api.delete('/data/:key', deleteDataRecord);
 
 // Redirects back to Health endpoint
-api.post('/*', (req, res) => {
-  res.redirect('/');
-});
+api.post('/*', (req: Request, res: Response) => res.redirect('/'));
 
-api.use((_req, res) => {
+// Fallback endpoint
+api.use((_req: Request, res: Response) => {
   res
     .status(404)
     .json({ error: 'Incorrect route or missing params' });
