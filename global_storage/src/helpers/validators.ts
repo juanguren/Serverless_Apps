@@ -48,8 +48,8 @@ const userKeyGuard = async (
       return next();
     } else {
       const { key } = req.params;
-      console.log({ key });
       const data = await getExistingKey(key);
+
       if (data) {
         if (api_key == data.token) return next();
         throw keyNameClaimedErrorMsg;
@@ -58,7 +58,6 @@ const userKeyGuard = async (
     }
   } catch (error) {
     const { code = 500, message } = error;
-    console.log(error);
     res.status(code).json({ warning: message });
   }
 };

@@ -11,7 +11,7 @@ const postDataHandler = async (
   action: DataAction,
 ) => {
   let {
-    keyName = 'key',
+    keyName,
     overwrite = undefined,
     timeToLive = undefined,
   } = dataSet.instructions;
@@ -23,6 +23,7 @@ const postDataHandler = async (
     const useOptions =
       Object.entries(option).length === 0 ? undefined : option;
     content.token = api_key;
+
     await data.set(keyName, content, useOptions);
 
     return res.status(200).json({
