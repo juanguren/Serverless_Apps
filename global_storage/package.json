@@ -9,7 +9,7 @@
     "test": "cloud test"
   },
   "devDependencies": {
-    "@serverless/cloud": "^2.6.7",
+    "@serverless/cloud": "^2.7.8",
     "@types/jest": "^26.0.24",
     "prettier": "^2.5.1"
   },

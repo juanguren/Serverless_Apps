@@ -1,9 +1,13 @@
-import { data, params } from '@serverless/cloud';
+import { data, params, Request, Response } from '@serverless/cloud';
 
 const getExistingKey = async (key: string): Promise<any> =>
   await data.get(key);
 
-const validateUserToken = (req, res, next: CallableFunction) => {
+const validateUserToken = (
+  req: Request,
+  res: Response,
+  next: CallableFunction,
+) => {
   const { APP_TOKENS } = params;
   const { api_key } = req.headers;
   try {
@@ -23,7 +27,11 @@ const validateUserToken = (req, res, next: CallableFunction) => {
   }
 };
 
-const userKeyGuard = async (req, res, next: CallableFunction) => {
+const userKeyGuard = async (
+  req: Request,
+  res: Response,
+  next: CallableFunction,
+) => {
   const { api_key } = req.headers;
   const keyNameClaimedErrorMsg = {
     message: 'Key Name has already being claimed.',
@@ -41,6 +49,7 @@ const userKeyGuard = async (req, res, next: CallableFunction) => {
     } else {
       const { key } = req.params;
       const data = await getExistingKey(key);
+
       if (data) {
         if (api_key == data.token) return next();
         throw keyNameClaimedErrorMsg;
@@ -48,7 +57,7 @@ const userKeyGuard = async (req, res, next: CallableFunction) => {
       return next();
     }
   } catch (error) {
-    const { code, message } = error;
+    const { code = 500, message } = error;
     res.status(code).json({ warning: message });
   }
 };

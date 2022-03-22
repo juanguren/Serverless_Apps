@@ -1,6 +1,6 @@
 import { schedule, params } from '@serverless/cloud';
-import requestHealthEndpoint from '../services/healthCheckService';
-import { requestEmailService } from '../services/sendGridService';
+import requestHealthEndpoint from '../services/healthCheck.service';
+import { requestEmailService } from '../services/sendGrid.service';
 
 const healthCheckCron = (): void => {
   const { INSTANCE_BASE_URL, MY_EMAIL = undefined } = params;
