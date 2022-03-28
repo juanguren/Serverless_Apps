@@ -33,7 +33,7 @@ const generateOrder = async (req: Request, res: Response) => {
   }
 };
 
-const handleOrderComplete = async (req: Request, res: Response) => {
+const handleOrderCompletion = async (req: Request, res: Response) => {
   const { orderId } = req.params;
   const statusComplete: OrderStatus = OrderStatus.COMPLETED;
   try {
@@ -74,6 +74,26 @@ const handleOrderCancellation = async (
   }
 };
 
+const orderWasUpdated = async (
+  req: Request,
+  res: Response,
+  next: CallableFunction,
+) => {
+  const { orderId } = req.params;
+  try {
+    const order = (await data.get(orderId)) as IOrder;
+    const orderStatusHasNotChanged =
+      order.paymentStatus === OrderStatus.PENDING;
+
+    if (orderStatusHasNotChanged) return next();
+    return res
+      .status(403)
+      .json({ message: 'Order was already updated' });
+  } catch (error) {
+    return res.status(400 | 500).json(error);
+  }
+};
+
 // Helper method
 const updateOrderStatus = async (
   orderId: string,
@@ -93,6 +113,7 @@ const updateOrderStatus = async (
 
 export {
   generateOrder,
-  handleOrderComplete,
+  handleOrderCompletion,
   handleOrderCancellation,
+  orderWasUpdated,
 };
