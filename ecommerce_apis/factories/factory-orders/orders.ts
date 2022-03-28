@@ -7,32 +7,27 @@ import {
 import { PaymentFactory } from './payment-factory';
 import getJsonApiData from '../../services/json-promise.service';
 import { nanoid } from 'nanoid';
-
-export interface IOrder {
-  id: string;
-  items: object[];
-  totalPrice: number;
-  paymentStatus: PaymentComplete;
-}
+import { IOrder, OrderStatus } from './types';
 
 export class Order {
   public id: string;
   public comission: number = 0;
   public items: object[] = [];
   public paymentProvider: IPaymentProvider;
-  public paymentStatus: PaymentComplete;
+  public paymentStatus: OrderStatus;
 
   constructor(
     private provider: PaymentProviders,
     public itemIds: number[],
   ) {
     this.id = nanoid();
-    this.paymentStatus = 'unknown';
+    this.paymentStatus = OrderStatus.PENDING;
   }
 
   public async create(): Promise<IOrder> {
     try {
       // Selects the provider using the factory class
+      // ! TODO: Handle the error in case a non-existant provider is set
       this.paymentProvider = PaymentFactory.getPaymentProvider(
         this.provider,
       );

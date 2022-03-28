@@ -1,7 +1,9 @@
 import { api, Request, Response } from '@serverless/cloud';
 import {
   generateOrder,
-  updateOrderStatus,
+  handleOrderCompletion,
+  handleOrderCancellation,
+  orderWasUpdated,
 } from './middlewares/order';
 import { userRegistration } from './middlewares/user-registration';
 import { validateUser } from './middlewares/user-validations';
@@ -14,8 +16,19 @@ api.post('/signup', userRegistration);
 // Select the payment provider and create an order
 api.post('/:provider/', validateUser, generateOrder);
 
-// Update the order status
-api.put('/status/:orderId', validateUser, updateOrderStatus);
+// Update orders: completed - canceled
+api.put(
+  '/:orderId/complete',
+  validateUser,
+  orderWasUpdated,
+  handleOrderCompletion,
+);
+api.put(
+  '/:orderId/cancel',
+  validateUser,
+  orderWasUpdated,
+  handleOrderCancellation,
+);
 
 // Fallback
 api.get('/*', (_req: Request, res: Response) =>
