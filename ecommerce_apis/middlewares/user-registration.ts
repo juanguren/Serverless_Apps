@@ -34,9 +34,11 @@ export const userRegistration = async (
     });
 
     await events.publish('user.created', savedNewUser);
-    await events.publish('user.followUp', savedNewUser, {
-      after: '1 day',
-    });
+    await events.publish(
+      'user.followUp',
+      { after: '1 day' },
+      savedNewUser,
+    );
 
     res.send({ newUser: savedNewUser });
   } catch (error) {
