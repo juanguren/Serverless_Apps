@@ -1,0 +1,8 @@
+{
+    "app": {
+        "environment": "development",
+        "connection": "mongodb+srv://juanguren:<password>@cluster0.krt3b.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+        "apiUrl": "..",
+        "port": 3000
+    }
+}
