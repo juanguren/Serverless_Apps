@@ -1,0 +1,8 @@
+{
+    "app": {
+        "environment": "development",
+        "connection": "mongodb://localhost/test",
+        "apiUrl": "apiTest",
+        "port": 3000
+    }
+}
