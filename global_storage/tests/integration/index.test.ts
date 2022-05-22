@@ -129,6 +129,17 @@ describe('Main Endpoints', () => {
       expect(response.body).toHaveProperty('message');
     });
 
+    it('Should output an error when trying to delete a record that no longer exists', async () => {
+      const response = await api
+        .delete(`/data/${keyName}`)
+        .invoke(undefined, { headers });
+
+      expect(response.status).toBe(404);
+      expect(response.body).toEqual({
+        message: 'Record does not exist',
+      });
+    });
+
     afterAll(async () => {
       const data = await api
         .get(`/data/${keyName}`)
