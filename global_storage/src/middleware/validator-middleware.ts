@@ -1,7 +1,5 @@
-import { data, params, Request, Response } from '@serverless/cloud';
-
-const getExistingKey = async (key: string): Promise<any> =>
-  await data.get(key);
+import { params, Request, Response } from '@serverless/cloud';
+import { getExistingKey } from '../utils/utils';
 
 const validateUserToken = (
   req: Request,

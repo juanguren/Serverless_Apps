@@ -1,6 +1,6 @@
 import { data, Request, Response } from '@serverless/cloud';
 import { postDataHandler } from '../helpers/dataHandler';
-import { getExistingKey } from '../helpers/validators';
+import { getExistingKey } from '../middleware/validator-middleware';
 import {
   AcceptedData,
   DataAction,
@@ -53,6 +53,7 @@ const deleteDataRecord = async (req: Request, res: Response) => {
   const { key: keyName } = req.params;
   try {
     const response = await data.remove(keyName);
+
     if (response)
       return res
         .status(200)
