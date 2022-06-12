@@ -10,6 +10,7 @@ import {
 dotenv.config();
 
 describe('Application-Wide', () => {
+  // * 👇 Remember to set API_KEY_TEST in the `.env` file
   const { API_KEY_TEST } = process.env;
   const headers = { api_key: API_KEY_TEST };
 
@@ -96,6 +97,8 @@ describe('Main Endpoints', () => {
       expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('message');
       expect(response.body).toHaveProperty('keyName');
+      expect(response.body).toHaveProperty('record');
+
       await data.remove(newKey);
     });
 
